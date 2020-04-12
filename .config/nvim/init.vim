@@ -5,6 +5,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
 " Code formatting
+Plug 'jiangmiao/auto-pairs'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
@@ -40,6 +41,8 @@ set smarttab
 set cindent
 set tabstop=2
 set shiftwidth=2
+set autoindent
+
 " always uses spaces instead of tab characters
 set expandtab
 
@@ -178,10 +181,18 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-set noshowmode 
-set noruler
-set laststatus=0
-set noshowcmd
+"set noshowmode 
+"set noruler
+"set laststatus=0
+"set noshowcmd
 set cmdheight=1
+set relativenumber
 
 set clipboard+=unnamedplus
+
+" Formating remap
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Autoindent when pressing enter in curly brace
+
