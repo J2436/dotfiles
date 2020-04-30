@@ -3,7 +3,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'preservim/nerdtree'
+" Themes
 Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
 " Code formatting
 Plug 'jiangmiao/auto-pairs'
 Plug 'google/vim-maktaba'
@@ -11,14 +14,17 @@ Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 call plug#end()
 
+
+set t_Co=256
 set ttimeout
 set ttimeoutlen=0
 
 " vim-codefmt setup
 augroup autoformat_settings
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType c,cpp,proto AutoFormatBuffer clang-format
+	autocmd FileType javascript AutoFormatBuffer prettier
   autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType java AutoFormatBuffer clang-format
   autocmd FileType python AutoFormatBuffer yapf
 augroup END
 
@@ -27,6 +33,13 @@ nmap <C-n> :NERDTreeToggle<CR>
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
 
+
+" Disable automatic commenting on new line
+autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
+
+" Start nerdtree automatically on start
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ctrlp
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
@@ -43,21 +56,18 @@ set tabstop=2
 set shiftwidth=2
 set autoindent
 
-" always uses spaces instead of tab characters
-set expandtab
-
-colorscheme gruvbox
+colorscheme gruvbox 
 
 " coc config
 let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-tsserver',
-  \ 'coc-eslint', 
   \ 'coc-prettier', 
   \ 'coc-json', 
   \ 'coc-clangd',
   \ 'coc-java',
+  \ 'coc-python',
   \ ]
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
