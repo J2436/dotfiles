@@ -7,7 +7,7 @@ font pango:monospace 8
 # Startup stuff
 exec --no-startup-id ~/.fehbg 
 exec --no-startup-id compton
-exec nvidia-settings -a "[gpu:0]/GpuPowerMizerMode=1" # Set GPU to Max Perf
+exec --no-startup-id nvidia-settings -a "[gpu:0]/GpuPowerMizerMode=1" # Set GPU to Max Perf
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Hotkey start apps
@@ -100,8 +100,8 @@ bindsym $mod+a focus parent
 # We use variables to avoid repeating the names in multiple places.
 
 # Cycle workspaces with scrollwheel left/right
-bindsym --whole-window button6 workspace next_on_output
-bindsym --whole-window button7 workspace prev_on_output
+bindsym --whole-window button7 workspace next_on_output
+bindsym --whole-window button6 workspace prev_on_output
 
 set $ws1 "1"
 set $ws2 "2"
@@ -186,5 +186,7 @@ for_window [title="^.*"] border pixel 0
 # Floating Applications
 for_window [class="URxvt"] floating enable
 for_window [class="discord"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Gedit"] floating enable
 
 focus_follows_mouse no
