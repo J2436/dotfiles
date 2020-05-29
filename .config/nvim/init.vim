@@ -4,26 +4,53 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
+Plug 'tpope/vim-surround'
 " Themes
-Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-gruvbox8'
 Plug 'arcticicestudio/nord-vim'
 " Code formatting
 Plug 'jiangmiao/auto-pairs'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
+Plug 'honza/vim-snippets'
 call plug#end()
 
+let g:mapleader = "\<Space>"
+
+"set termguicolors
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+colorscheme gruvbox8
+
+" Make nvim transparent even after colorscheme
+au ColorScheme * hi Normal ctermbg=none guibg=none
+au ColorScheme myspecialcolors hi Normal ctermbg=red guibg=red
 
 set t_Co=256
 set ttimeout
 set ttimeoutlen=0
 
+" Custom mappings
+	" Ctrl+s to save file
+	nmap <C-s> :w<CR>
+	" Save on double tap esc
+	map <Esc><Esc> :wq<CR>
+	" j/k will move virtual lines (lines that wrap)
+	noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+	noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+
+" fzf vim settings
+nnoremap <silent> <leader><space> :Files<CR>
+
+" set syntax highlighting as HTML for ejs
+au BufNewFile, BufRead *.ejs set filetype=html
+
 " vim-codefmt setup
 augroup autoformat_settings
   autocmd FileType c,cpp,proto AutoFormatBuffer clang-format
 	autocmd FileType javascript AutoFormatBuffer prettier
-  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer prettier
   autocmd FileType java AutoFormatBuffer clang-format
   autocmd FileType python AutoFormatBuffer yapf
 augroup END
@@ -33,30 +60,23 @@ nmap <C-n> :NERDTreeToggle<CR>
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
 
-
 " Disable automatic commenting on new line
 autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
 " Start nerdtree automatically on start
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ctrlp
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
-" j/k will move virtual lines (lines that wrap)
-noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
-
 set number 
-
 set smarttab
 set cindent
 set tabstop=2
 set shiftwidth=2
 set autoindent
 
-colorscheme gruvbox 
 
 " coc config
 let g:coc_global_extensions = [
@@ -68,6 +88,12 @@ let g:coc_global_extensions = [
   \ 'coc-clangd',
   \ 'coc-java',
   \ 'coc-python',
+	\ 'coc-html',
+	\ 'coc-angular',
+	\ 'coc-css',
+	\ 'coc-eslint',
+	\ 'coc-ultisnips',
+	\ 'coc-tabnine'
   \ ]
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -161,7 +187,7 @@ omap af <Plug>(coc-funcobj-a)
 nmap <silent> <C-d> <Plug>(coc-range-select)
 xmap <silent> <C-d> <Plug>(coc-range-select)
 
-" Use `:Format` to format current buffer
+" Use `:Format` ro format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` to fold current buffer
