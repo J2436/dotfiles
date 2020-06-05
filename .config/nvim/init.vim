@@ -89,7 +89,6 @@ let g:coc_global_extensions = [
   \ 'coc-java',
   \ 'coc-python',
 	\ 'coc-html',
-	\ 'coc-angular',
 	\ 'coc-css',
 	\ 'coc-eslint',
 	\ 'coc-ultisnips',
