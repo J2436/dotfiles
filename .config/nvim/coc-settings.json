@@ -1,0 +1,10 @@
+{
+  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+	"eslint.autoFixOnSave": true,
+	"coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "html", "css"],
+	"suggest.maxCompleteItemCount": 10,
+	"coc.source.around.enable": false,
+	"coc.source.buffer.enable": false,
+	"javascript.showUnused": false,
+	"javascript.suggestionActions.enabled": false
+}

@@ -13,14 +13,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
-Plug 'honza/vim-snippets'
 call plug#end()
 
 let g:mapleader = "\<Space>"
 
-"set termguicolors
-"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 colorscheme gruvbox8
 
 " Make nvim transparent even after colorscheme
@@ -34,23 +30,22 @@ set ttimeoutlen=0
 " Custom mappings
 	" Ctrl+s to save file
 	nmap <C-s> :w<CR>
-	" Save on double tap esc
-	map <Esc><Esc> :wq<CR>
 	" j/k will move virtual lines (lines that wrap)
 	noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 	noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 " fzf vim settings
-nnoremap <silent> <leader><space> :Files<CR>
 
-" set syntax highlighting as HTML for ejs
+nnoremap<silent><leader><space> :Files<CR>
+"fuzzy find lines in the current file
+nmap <leader>/ :BLines<cr> 
+
+"set syntax highlighting as HTML for ejs
 au BufNewFile, BufRead *.ejs set filetype=html
 
 " vim-codefmt setup
 augroup autoformat_settings
   autocmd FileType c,cpp,proto AutoFormatBuffer clang-format
-	autocmd FileType javascript AutoFormatBuffer prettier
-  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer prettier
   autocmd FileType java AutoFormatBuffer clang-format
   autocmd FileType python AutoFormatBuffer yapf
 augroup END
@@ -77,7 +72,6 @@ set tabstop=2
 set shiftwidth=2
 set autoindent
 
-
 " coc config
 let g:coc_global_extensions = [
   \ 'coc-snippets',
@@ -90,11 +84,10 @@ let g:coc_global_extensions = [
   \ 'coc-python',
 	\ 'coc-html',
 	\ 'coc-css',
-	\ 'coc-eslint',
-	\ 'coc-ultisnips',
-	\ 'coc-tabnine'
+	\ 'coc-eslint'
   \ ]
 
+" Format on save
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " if hidden is not set, TextEdit might fail.
 set hidden " Some servers have issues with backup files, see #649 set nobackup set nowritebackup " Better display for messages set cmdheight=2 " You will have bad experience for diagnostic messages when it's default 4000.
@@ -106,27 +99,32 @@ set shortmess+=c
 " always show signcolumns
 " set signcolumn=yes
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" tab for snippet trigger
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+let g:coc_snippet_next = '<tab>'
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -220,14 +218,11 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 "set noruler
 "set laststatus=0
 "set noshowcmd
+
 set cmdheight=1
 set relativenumber
-
 set clipboard+=unnamedplus
 
 " Formating remap
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
-
-" Autoindent when pressing enter in curly brace
-
