@@ -214,11 +214,6 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-"set noshowmode 
-"set noruler
-"set laststatus=0
-"set noshowcmd
-
 set cmdheight=1
 set relativenumber
 set clipboard+=unnamedplus
@@ -226,3 +221,10 @@ set clipboard+=unnamedplus
 " Formating remap
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+
+" Window navigation binds
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
