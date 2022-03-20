@@ -1,0 +1,9 @@
+WARN  2022-03-06T16:46:50.134 8745  log_path_init:96: Failed to create directory /Users/jacky/.cache/nvim for writing logs: Unknown system error 1
+WARN  2022-03-06T16:47:58.190 8751  log_path_init:96: Failed to create directory /Users/jacky/.cache/nvim for writing logs: Unknown system error 1
+WARN  2022-03-06T16:48:14.733 8757  log_path_init:96: Failed to create directory /Users/jacky/.cache/nvim for writing logs: Unknown system error 1
+WARN  2022-03-06T16:49:10.819 8768  log_path_init:96: Failed to create directory /Users/jacky/.cache/nvim for writing logs: Unknown system error 1
+WARN  2022-03-06T16:50:59.631 8806  log_path_init:96: Failed to create directory /Users/jacky/.cache/nvim for writing logs: Unknown system error 1
+WARN  2022-03-06T16:56:49.050 8873  log_path_init:96: Failed to create directory /Users/jacky/.cache/nvim for writing logs: Unknown system error 1
+WARN  2022-03-06T16:57:22.823 8890  log_path_init:96: Failed to create directory /Users/jacky/.cache/nvim for writing logs: Unknown system error 1
+WARN  2022-03-06T16:57:44.370 8902  log_path_init:96: Failed to create directory /Users/jacky/.cache/nvim for writing logs: Unknown system error 1
+WARN  2022-03-06T16:58:34.358 8921  log_path_init:96: Failed to create directory /Users/jacky/.cache/nvim for writing logs: Unknown system error 1

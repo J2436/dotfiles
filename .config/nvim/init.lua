@@ -1,0 +1,6 @@
+require('plugins')
+require('colorscheme')
+require('settings')
+require('telescope-config')
+require('lsp-config')
+require('lsp-installer-config')
