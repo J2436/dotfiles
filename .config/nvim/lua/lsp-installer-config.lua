@@ -1,9 +1,14 @@
 local lsp_installer = require("nvim-lsp-installer")
 
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 -- Register a handler that will be called for each installed server when it's ready (i.e. when installation is finished
 -- or if the server is already installed).
 lsp_installer.on_server_ready(function(server)
-    local opts = {}
+    local opts = {
+      capabilities=capabilities
+    }
 
     -- (optional) Customize the options passed to the server
     -- if server.name == "tsserver" then

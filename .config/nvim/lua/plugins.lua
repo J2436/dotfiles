@@ -17,8 +17,8 @@ return require('packer').startup(function()
       run = ':TSUpdate'
     }
   use 'hrsh7th/nvim-cmp' -- Autocompletion
-
-
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'L3MON4D3/LuaSnip'
   -- Search
   use {
 	'nvim-telescope/telescope.nvim',
