@@ -25,6 +25,12 @@ return require('packer').startup(function()
 	requires = { {'nvim-lua/plenary.nvim'} }
 
   }
+  
+  -- Git
+  use 'tpope/vim-fugitive'
+  use 'airblade/vim-gitgutter'
+
+  -- File search
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } -- Picker used with telescope
   use 'preservim/nerdtree'
 end)

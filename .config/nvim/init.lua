@@ -5,3 +5,5 @@ require('telescope-config')
 require('lsp-config')
 require('lsp-installer-config')
 require('completion')
+require('mappings')
+
