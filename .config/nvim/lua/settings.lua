@@ -31,5 +31,5 @@ vim.o.hlsearch=false
 -- Remove auto comment
 vim.api.nvim_command('set formatoptions-=cro')
 
--- Git Gutter
-vim.o.updatetime=100
+-- Prettier neoformat
+vim.g.neoformat_try_node_exe=1

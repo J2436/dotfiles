@@ -19,6 +19,7 @@ return require('packer').startup(function()
   use 'hrsh7th/nvim-cmp' -- Autocompletion
   use 'hrsh7th/cmp-nvim-lsp'
   use 'L3MON4D3/LuaSnip'
+
   -- Search
   use {
 	'nvim-telescope/telescope.nvim',
@@ -33,4 +34,7 @@ return require('packer').startup(function()
   -- File search
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } -- Picker used with telescope
   use 'preservim/nerdtree'
+
+  -- Formatting
+  use 'sbdchd/neoformat'
 end)
