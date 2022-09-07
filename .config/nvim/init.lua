@@ -6,4 +6,3 @@ require('lsp-installer-config')
 require('lsp-config')
 require('completion')
 require('mappings')
-

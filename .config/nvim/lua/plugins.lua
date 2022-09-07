@@ -8,7 +8,7 @@ return require('packer').startup(function()
   })
   use 'ellisonleao/gruvbox.nvim'
 
-  -- Dev
+  -- LSP
   use 'neovim/nvim-lspconfig' -- Collection of configurations for the built-in LSP client
   use 'williamboman/nvim-lsp-installer'
 
@@ -16,7 +16,11 @@ return require('packer').startup(function()
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate'
     }
-  use 'hrsh7th/nvim-cmp' -- Autocompletion
+  
+  use 'mfussenegger/nvim-jdtls'
+
+  -- Autocompletion
+  use 'hrsh7th/nvim-cmp' 
   use 'hrsh7th/cmp-nvim-lsp'
   use 'L3MON4D3/LuaSnip'
 
@@ -37,4 +41,5 @@ return require('packer').startup(function()
 
   -- Formatting
   use 'sbdchd/neoformat'
+
 end)
