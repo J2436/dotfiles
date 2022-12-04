@@ -1,4 +1,2 @@
 local nnoremap = require('jacky.keymap').nnoremap
-
--- NERDTree
-nnoremap("<Leader>nt", "<cmd>NERDTree<CR>")
+nnoremap("<C-d>", "<C-d>zz")

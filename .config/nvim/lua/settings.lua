@@ -1,5 +1,8 @@
 vim.g.mapleader=','
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Mapping waiting time
 vim.o.timeout=false
 vim.o.ttimeout=true
@@ -16,7 +19,7 @@ vim.o.relativenumber=true
 vim.showcmd=true
 
 -- Search
-vim.o.incsearch=true 
+vim.o.incsearch=true
 vim.o.ignorecase=true
 vim.o.smartcase=true
 
@@ -30,6 +33,9 @@ vim.o.hlsearch=false
 
 -- Remove auto comment
 vim.api.nvim_command('set formatoptions-=cro')
+
+-- Yank to clipboard by default
+vim.api.nvim_command('set clipboard=unnamed')
 
 -- Prettier neoformat
 vim.g.neoformat_try_node_exe=1
