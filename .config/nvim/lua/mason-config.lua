@@ -9,32 +9,52 @@ require("mason-lspconfig").setup_handlers({
       on_attach = on_attach
     })
   end,
-  ["sumneko_lua"] = function()
-    lspconfig.sumneko_lua.setup({
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim", "use" },
-          },
-        },
-      },
-    })
-  end,
-  ["tsserver"] = function()
-    lspconfig.tsserver.setup({
-      settings = {},
-    })
-  end,
+ -- ["lua_ls"] = function()
+ --   lspconfig.sumneko_lua.setup({
+ --     settings = {
+ --       Lua = {
+ --         diagnostics = {
+ --           globals = { "vim", "use" },
+ --         },
+ --       },
+ --     },
+ --   })
+ -- end,
+
+--  ["tsserver"] = function()
+--    lspconfig.tsserver.setup({
+--      settings = {},
+--    })
+--  end,
 })
 
--- Note Setting LSP lines here as it needs to be done after LSP (doublecheck)
+-- Nicer hover borders
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  {border = "rounded"}
+)
+
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  {border = "rounded"}
+)
+
 vim.diagnostic.config({
   virtual_text = false,
   update_in_insert = true,
-  signs = {
-    severity = "ERROR",
-  },
-  virtual_lines = { only_current_line = true }
+  underline = true
 })
 
-require("lsp_lines").setup({})
+vim.o.updatetime = 250
+
+-- Note Setting LSP lines here as it needs to be done after LSP (doublecheck)
+-- vim.diagnostic.config({
+--   virtual_text = false,
+--   update_in_insert = true,
+--   signs = {
+--     severity = "ERROR",
+--   },
+--   -- virtual_lines = { only_current_line = true }
+-- })
+
+-- require("lsp_lines").setup({})

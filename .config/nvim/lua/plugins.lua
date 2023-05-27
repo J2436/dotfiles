@@ -24,10 +24,16 @@ return require('packer').startup(function()
 
   -- Autocompletion
   use 'hrsh7th/nvim-cmp'
+  use 'saadparwaiz1/cmp_luasnip'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'L3MON4D3/LuaSnip'
   use "windwp/nvim-autopairs"
-
+  use {
+      'numToStr/Comment.nvim',
+      config = function()
+          require('Comment').setup()
+      end
+  }
   -- Search
   use {
     'nvim-telescope/telescope.nvim',
@@ -42,15 +48,13 @@ return require('packer').startup(function()
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
 
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } -- Picker used with telescope
+
   -- Git
   use 'tpope/vim-fugitive'
   use 'lewis6991/gitsigns.nvim'
 
-  -- File search
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } -- Picker used with telescope
-
   -- Diagnostics
-  use 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
   use "lukas-reineke/indent-blankline.nvim"
 
   -- Formatting

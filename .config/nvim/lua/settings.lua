@@ -31,9 +31,6 @@ vim.o.shiftwidth=2
 vim.o.expandtab=true
 vim.o.hlsearch=false
 
--- Remove auto comment
-vim.api.nvim_command('set formatoptions-=cro')
-
 -- Yank to clipboard by default
 vim.api.nvim_command('set clipboard=unnamed')
 

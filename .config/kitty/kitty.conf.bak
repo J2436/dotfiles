@@ -2168,9 +2168,3 @@ font_size 14.0
 
 #: }}}
 include ~/.config/kitty/themes/gruvbox_dark.conf
-
-
-# BEGIN_KITTY_THEME
-# Tokyo-night-kitty
-include current-theme.conf
-# END_KITTY_THEME
