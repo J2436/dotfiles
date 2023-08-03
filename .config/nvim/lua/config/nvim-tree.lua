@@ -1,8 +1,3 @@
-local nnoremap = require('jacky.keymap').nnoremap
-
--- NERDTree
-nnoremap("<Leader>nt", "<cmd>NvimTreeToggle<CR>")
-
 require("nvim-tree").setup({
   view = {
     adaptive_size = true,
@@ -33,4 +28,4 @@ require("nvim-tree").setup({
   }
 })
 
-require'nvim-web-devicons'.setup()
+vim.keymap.set('n', '<leader>nt', '<cmd>NvimTreeToggle<CR>')

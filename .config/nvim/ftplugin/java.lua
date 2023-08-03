@@ -7,12 +7,16 @@ vim.list_extend(bundles,
   -- vim.split(vim.fn.glob("/Users/jacky/.local/share/nvim/mason/packages/java-test/extension/server/com.microsoft.java.test.plugin-0.37.1.jar")
   vim.split(vim.fn.glob("/Users/jacky/.local/share/nvim/mason/packages/java-test/extension/server/*.jar", 1), "\n"))
 
+
 local opts = { noremap = true, silent = true }
 local on_attach = function(client, bufnr)
   require('jdtls').setup_dap({ hotcodereplace = 'auto' })
   require 'jdtls.setup'.add_commands()
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  vim.o.shiftwidth = 4
+  vim.o.tabstop = 4
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
