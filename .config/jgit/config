@@ -1,6 +1,0 @@
-[filesystem "Oracle Corporation|18.0.2|/dev/disk3s5"]
-	timestampResolution = 3000 nanoseconds
-	minRacyThreshold = 0 nanoseconds
-[filesystem "Homebrew|11.0.16.1|/dev/disk3s5"]
-	timestampResolution = 3000 nanoseconds
-	minRacyThreshold = 0 nanoseconds
