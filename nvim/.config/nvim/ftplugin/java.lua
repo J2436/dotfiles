@@ -1,11 +1,15 @@
+-- local path_to_jdtls_server = '/home/jacky/tools/lsp/jdtls-server'
+-- local path_to_mason_packages = '/.local/share/nvim/mason/packages'
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local bundles = {
   -- vim.fn.glob("/Users/jacky/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.41.0.jar")
-  vim.fn.glob("/Users/jacky/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", 1)
+  -- vim.fn.glob(path_to_mason_packages.."/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", 1)
+  vim.fn.glob("/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", 1)
 }
 vim.list_extend(bundles,
   -- vim.split(vim.fn.glob("/Users/jacky/.local/share/nvim/mason/packages/java-test/extension/server/com.microsoft.java.test.plugin-0.37.1.jar")
-  vim.split(vim.fn.glob("/Users/jacky/.local/share/nvim/mason/packages/java-test/extension/server/*.jar", 1), "\n"))
+  -- vim.split(vim.fn.glob(path_to_mason_packages.."/java-test/extension/server/*.jar", 1), "\n"))
+  vim.split(vim.fn.glob("/.local/share/nvim/mason/packages/java-test/extension/server/*.jar", 1), "\n"))
 
 
 local opts = { noremap = true, silent = true }
@@ -40,7 +44,7 @@ local on_attach = function(client, bufnr)
 end
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-local workspace_dir = '/Users/jacky/Code/workspace/' .. project_name
+local workspace_dir = '/home/jacky/code/.workspace/' .. project_name
 local config = {
   -- The command that starts the language server
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
@@ -55,21 +59,25 @@ local config = {
     '-Dlog.protocol=true',
     '-Dlog.level=ALL',
     '-Xms1g',
-    '-javaagent:/Users/jacky/Downloads/lombok.jar',
-    '-Xbootclasspath/a:/Users/jacky/Downloads/lombok.jar',
+    -- '-javaagent:/Users/jacky/Downloads/lombok.jar',
+    -- '-Xbootclasspath/a:/Users/jacky/Downloads/lombok.jar',
     '--add-modules=ALL-SYSTEM',
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
     -- 💀
-    '-jar', '/Users/jacky/.local/share/lsp/jdtls-server/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+    -- '-jar', '/Users/jacky/.local/share/lsp/jdtls-server/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+    -- '-jar', path_to_jdtls_server..'/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+    '-jar', '/home/jacky/tools/lsp/jdtls-server/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
     -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
     -- Must point to the                                                     Change this to
     -- eclipse.jdt.ls installation                                           the actual version
 
 
     -- 💀
-    '-configuration', '/Users/jacky/.local/share/lsp/jdtls-server/config_mac',
+    -- '-configuration', '/Users/jacky/.local/share/lsp/jdtls-server/config_linux',
+    -- '-configuration', path_to_jdtls_server..'/config_linux',
+    '-configuration', '/home/jacky/tools/lsp/jdtls-server/config_linux',
     -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
     -- Must point to the                      Change to one of `linux`, `win` or `mac`
     -- eclipse.jdt.ls installation            Depending on your system.
@@ -104,7 +112,7 @@ local config = {
   --
   -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
   init_options = {
-    bundles = bundles;
+    -- bundles = bundles;
   },
   on_attach = on_attach
 }

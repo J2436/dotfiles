@@ -77,6 +77,13 @@ return {
     'navarasu/onedark.nvim',
     priority = 1000,
     config = function()
+      require('onedark').setup {
+        style = 'dark',
+        transparent = 'false',
+        lualine = {
+          transparent = 'false'
+        }
+      }
       vim.cmd.colorscheme 'onedark'
     end,
   },
@@ -95,15 +102,23 @@ return {
     },
   },
 
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl",
     opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+      debounce = 100,
+      whitespace = { highlight = { "Whitespace", "NonText", "Function", "Label" } },
+      indent = {
+        char = '|',
+        tab_char = { 'a' }
+      },
+
+      scope = {
+        include = {
+          node_type = {
+            lua = { 'return_statement', 'table_constructor' }
+          }
+        }
+      }
+    }
   },
 
   -- File tree
