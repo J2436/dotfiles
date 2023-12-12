@@ -124,6 +124,9 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 
+-- Navigation
+vim.keymap.set('n', '<Tab>', '<C-^>')
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -137,7 +140,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 --[[ Yank to Keyboard by default ]]
 -- vim.api.nvim_command('set clipboard=unamed')
-vim.o.clipboard='unnamed'
+vim.o.clipboard = 'unnamed'
 
 -- [[ Disable auto comment on newline]]
 local formatGrp = vim.api.nvim_create_augroup("NewlineComment", { clear = true })
@@ -151,7 +154,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_augroup('setIndent', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
   group = 'setIndent',
-  pattern = { 'json', 'lua', 'html', 'css', 'scss', 'javascript', 'typescript', 'xml', 'cpp'},
+  pattern = { 'json', 'lua', 'html', 'css', 'scss', 'javascript', 'typescript', 'xml', 'cpp', 'jsx', 'tsx' },
   command = "setlocal shiftwidth=2 tabstop=2"
 })
 vim.api.nvim_create_autocmd('FileType', {
@@ -179,6 +182,11 @@ local on_attach = function(_, bufnr)
   --
   -- In this case, we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
+
+  if _.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable(bufnr, true)
+  end
+
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -220,16 +228,39 @@ end
 --
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
+
+local function organize_imports()
+  local params = {
+    command = "_typescript.organizeImports",
+    arguments = { vim.api.nvim_buf_get_name(0) },
+    title = ""
+  }
+  vim.lsp.buf.execute_command(params)
+end
+
 local servers = {
   -- clangd = {},
   -- gopls = {},
+  bashls = {},
+  cssls = {},
+  marksman = {},
   pyright = {},
   rust_analyzer = {},
-  tsserver = {},
+  -- tsserver = {
+  --   init_options = {
+  --     preferences = {
+  --       quotePreference = 'single',
+  --       importModuleSpecifierPreference = 'non-relative',
+  --       disableSuggestions = true,
+  --     },
+  --   },
+  --   single_file_support = true
+  -- },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
+      hint = {  enable = true }
     },
   },
 }
@@ -240,6 +271,29 @@ require('neodev').setup()
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+require('lspconfig').tsserver.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  init_options = {
+    preferences = {
+      quotePreference = 'single',
+      importModuleSpecifierPreference = 'non-relative',
+      disableSuggestions = true,
+    },
+  },
+  settings = {
+    javascript = {
+      format = {
+        semicolons = 'insert',
+        trimTrailingWhitespace = true
+      },
+      inlayHints = {
+        includeInlayParameterNameHints = 'all'
+      }
+    }
+  }
+}
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
@@ -253,6 +307,7 @@ mason_lspconfig.setup_handlers {
       capabilities = capabilities,
       on_attach = on_attach,
       settings = servers[server_name],
+      commands = (server_name == 'tsserver' and { OrganizeImports = { organize_imports, description = "Organize Imports" } } or {})
     }
   end,
 }
@@ -272,7 +327,7 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 -- vim: ts=2 sts=2 sw=2 et
 --
 
--- TODO: add bash and shell scripts? 
+-- TODO: add bash and shell scripts?
 vim.keymap.set('n', '<leader>ex', function()
   local file_name = vim.api.nvim_buf_get_name(0)
   local file_extension = file_name:match("[^.]+$")

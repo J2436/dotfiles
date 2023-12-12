@@ -20,11 +20,11 @@ return {
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
-    },
+    }
   },
 
   {
@@ -50,7 +50,7 @@ return {
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  { 'folke/which-key.nvim',   opts = {} },
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -102,13 +102,14 @@ return {
     },
   },
 
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl",
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
     opts = {
       debounce = 100,
       whitespace = { highlight = { "Whitespace", "NonText", "Function", "Label" } },
       indent = {
         char = '|',
-        tab_char = { 'a' }
       },
 
       scope = {
@@ -126,7 +127,7 @@ return {
     'nvim-tree/nvim-tree.lua',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     tag = 'nightly',
-    config = function ()
+    config = function()
       require 'config.nvim-tree'
     end
   },
@@ -138,7 +139,7 @@ return {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
-    config = function ()
+    config = function()
       require 'config.treesitter'
     end
   },
