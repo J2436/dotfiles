@@ -260,7 +260,7 @@ local servers = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
-      hint = {  enable = true }
+      hint = { enable = true }
     },
   },
 }
@@ -279,7 +279,7 @@ require('lspconfig').tsserver.setup {
     preferences = {
       quotePreference = 'single',
       importModuleSpecifierPreference = 'non-relative',
-      disableSuggestions = true,
+      disableSuggestions = false,
     },
   },
   settings = {
@@ -289,7 +289,13 @@ require('lspconfig').tsserver.setup {
         trimTrailingWhitespace = true
       },
       inlayHints = {
-        includeInlayParameterNameHints = 'all'
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayParameterNameHints = 'literals',
       }
     }
   }
@@ -345,3 +351,9 @@ vim.keymap.set('n', '<leader>ex', function()
 end, { expr = true })
 
 vim.keymap.set('n', '<C-s>', '<cmd>w<CR>')
+
+require'nvim-treesitter.configs'.setup {
+  autotag = {
+    enable = true,
+  }
+}
