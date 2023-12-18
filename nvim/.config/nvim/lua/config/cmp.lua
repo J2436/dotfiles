@@ -24,7 +24,10 @@ cmp.setup {
   },
 
   window = {
-    completion = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered({
+      -- Change the border background color
+      winhighlight = "Normal:Normal,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
+    }),
     documentation = cmp.config.window.bordered(),
   },
 
