@@ -154,7 +154,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_augroup('setIndent', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
   group = 'setIndent',
-  pattern = { 'json', 'lua', 'html', 'css', 'scss', 'javascript', 'typescript', 'xml', 'cpp', 'jsx', 'tsx' },
+  pattern = { 'json', 'lua', 'html', 'css', 'scss', 'javascript', 'typescript', 'xml', 'cpp', 'javascriptreact', 'typescriptreact' },
   command = "setlocal shiftwidth=2 tabstop=2"
 })
 vim.api.nvim_create_autocmd('FileType', {
@@ -241,23 +241,44 @@ local function organize_imports()
 end
 
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
   bashls = {},
   cssls = {},
   marksman = {},
   pyright = {},
   rust_analyzer = {},
-  -- tsserver = {
-  --   init_options = {
-  --     preferences = {
-  --       quotePreference = 'single',
-  --       importModuleSpecifierPreference = 'non-relative',
-  --       disableSuggestions = true,
-  --     },
-  --   },
-  --   single_file_support = true
-  -- },
+  tsserver = {
+    typescript = {
+      preferences = {
+        quotePreference = 'single',
+        importModuleSpecifierPreference = 'non-relative',
+        disableSuggestions = false,
+      },
+      format = {
+        semicolons = 'insert',
+        trimTrailingWhitespace = true
+      }
+    },
+    javascript = {
+      preferences = {
+        quoteStyle = 'single',
+        importModuleSpecifierPreference = 'non-relative',
+        disableSuggestions = false,
+      },
+      format = {
+        semicolons = 'insert',
+        trimTrailingWhitespace = true
+      },
+      inlayHints = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = false,
+        includeInlayParameterNameHints = 'literals',
+      }
+    }
+  },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -265,6 +286,9 @@ local servers = {
       hint = { enable = true }
     },
   },
+  eslint = {
+
+  }
 }
 
 -- Setup neovim lua configuration
@@ -273,35 +297,6 @@ require('neodev').setup()
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-require('lspconfig').tsserver.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  init_options = {
-    preferences = {
-      quotePreference = 'single',
-      importModuleSpecifierPreference = 'non-relative',
-      disableSuggestions = false,
-    },
-  },
-  settings = {
-    javascript = {
-      format = {
-        semicolons = 'insert',
-        trimTrailingWhitespace = true
-      },
-      inlayHints = {
-        includeInlayEnumMemberValueHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayParameterNameHints = 'literals',
-      }
-    }
-  }
-}
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'

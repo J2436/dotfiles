@@ -66,6 +66,10 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   },
+  -- performance = {
+  --   max_view_entries = 10,
+  --
+  -- },
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
