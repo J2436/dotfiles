@@ -75,6 +75,7 @@ return {
     },
   },
 
+  -- COLORSCHEMES
   {
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
@@ -87,8 +88,23 @@ return {
           transparent = 'false'
         }
       }
-      vim.cmd.colorscheme 'onedark'
     end,
+  },
+
+  {
+    'sainnhe/gruvbox-material',
+    config = function()
+      vim.g.gruvbox_material_background = 'hard'
+      vim.g.gruvbox_material_cursor = 'orange'
+      vim.g.gruvbox_material_transparent_background = 1
+      vim.cmd.colorscheme 'gruvbox-material'
+    end
+  },
+
+  {
+    'rebelot/kanagawa.nvim',
+    config = function()
+    end
   },
 
   {
@@ -98,33 +114,33 @@ return {
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'gruvbox-material',
         component_separators = '|',
         section_separators = '',
       },
     },
   },
 
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    opts = {
-      debounce = 100,
-      whitespace = { highlight = { "Whitespace", "NonText", "Function", "Label" } },
-      indent = {
-        char = '|',
-      },
-
-      scope = {
-        include = {
-          node_type = {
-            lua = { 'return_statement', 'table_constructor' }
-          }
-        }
-      }
-    }
-  },
-
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   main = "ibl",
+  --   opts = {
+  --     -- debounce = 100,
+  --     whitespace = { highlight = { "Whitespace", "NonText", "Function", "Label" } },
+  --     indent = {
+  --       char = '|',
+  --     },
+  --
+  --     scope = {
+  --       include = {
+  --         node_type = {
+  --           lua = { 'return_statement', 'table_constructor' }
+  --         }
+  --       }
+  --     }
+  --   }
+  -- },
+  --
   -- File tree
   {
     'nvim-tree/nvim-tree.lua',

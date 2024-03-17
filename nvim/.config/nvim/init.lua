@@ -127,6 +127,9 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 -- Navigation
 vim.keymap.set('n', '<Tab>', '<C-^>')
 
+-- VimFugitive
+vim.keymap.set('n', '<leader>G', "<cmd>G<cr>", { silent = true })
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -154,7 +157,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_augroup('setIndent', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
   group = 'setIndent',
-  pattern = { 'json', 'lua', 'html', 'css', 'scss', 'javascript', 'typescript', 'xml', 'cpp', 'javascriptreact', 'typescriptreact' },
+  pattern = { 'json', 'lua', 'html', 'css', 'scss', 'javascript', 'typescript', 'xml', 'cpp', 'javascriptreact', 'typescriptreact', 'markdown' },
   command = "setlocal shiftwidth=2 tabstop=2"
 })
 vim.api.nvim_create_autocmd('FileType', {
@@ -184,7 +187,8 @@ local on_attach = function(_, bufnr)
   -- for LSP related items. It sets the mode, buffer and description for us each time.
 
   if _.server_capabilities.inlayHintProvider then
-    vim.lsp.inlay_hint.enable(bufnr, true)
+    -- vim.lsp.inlay_hint.enable(bufnr, true)
+    vim.lsp.inlay_hint(bufnr, true)
   end
 
   local nmap = function(keys, func, desc)
