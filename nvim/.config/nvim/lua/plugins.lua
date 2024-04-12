@@ -4,6 +4,16 @@ return {
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
+  {
+    'sindrets/diffview.nvim',
+    opts = {
+      view = {
+        x = {
+          layout = 'diff2_vertical'
+        }
+      }
+    }
+  },
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -49,6 +59,10 @@ return {
     end
   },
 
+  -- Frontend
+  'norcalli/nvim-colorizer.lua',
+  'jinh0/eyeliner.nvim',
+
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',   opts = {} },
   {
@@ -64,11 +78,8 @@ return {
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
-          { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
         vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-        vim.keymap.set('n', '<leader>gb', require('gitsigns').blame_line, { buffer = bufnr, desc = '[R]eset [B]uffer' })
-        vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
         vim.keymap.set('n', '<leader>rh', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[R]eset [H]unk' })
         vim.keymap.set('n', '<leader>rb', require('gitsigns').reset_buffer, { buffer = bufnr, desc = '[R]eset [B]uffer' })
       end,
@@ -121,26 +132,6 @@ return {
     },
   },
 
-  -- {
-  --   "lukas-reineke/indent-blankline.nvim",
-  --   main = "ibl",
-  --   opts = {
-  --     -- debounce = 100,
-  --     whitespace = { highlight = { "Whitespace", "NonText", "Function", "Label" } },
-  --     indent = {
-  --       char = '|',
-  --     },
-  --
-  --     scope = {
-  --       include = {
-  --         node_type = {
-  --           lua = { 'return_statement', 'table_constructor' }
-  --         }
-  --       }
-  --     }
-  --   }
-  -- },
-  --
   -- File tree
   {
     'nvim-tree/nvim-tree.lua',
@@ -179,12 +170,21 @@ return {
       require('nvim-ts-autotag').setup()
     end
   },
+
   -- Java
   {
     'mfussenegger/nvim-jdtls',
     dependencies = {
       'mfussenegger/nvim-dap'
     }
+  },
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-context'
   },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.

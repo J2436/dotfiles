@@ -42,16 +42,31 @@ cmp.setup {
       select = true,
     },
     ["<Tab>"] = cmp.mapping(function(fallback)
+      local row, col = unpack(vim.api.nvim_win_get_cursor(0))
       if cmp.visible() then
         local entry = cmp.get_selected_entry()
         if not entry then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
           cmp.confirm()
+          -- vim.lsp.buf.format({
+          --   range = {
+          --     ["start"] = { row-1, 0 },
+          --     ["end"] = { row+1, 0 },
+          --   }
+          -- })
         end
       elseif luasnip.expand_or_locally_jumpable() then
         luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
+          -- vim.lsp.buf.format({
+          --   range = {
+          --     ["start"] = { row-1, 0 },
+          --     ["end"] = { row+1, 0 },
+          --   }
+          -- })
+          -- vim.print(unpack(pos));
+          -- print(vim.print(unpack(vim.api.nvim_win_get_cursor(0))))
       else
         fallback()
       end
