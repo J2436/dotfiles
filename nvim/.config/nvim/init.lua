@@ -176,6 +176,12 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false
+    }
+)
+
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -360,3 +366,9 @@ require 'nvim-treesitter.configs'.setup {
     enable = true,
   }
 }
+
+
+vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { sp = 'Grey', underline = true})
+vim.api.nvim_set_hl(0, 'TreesitterContextLineNumberBottom', { sp = 'Grey', underline = true})
+vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = 'NONE'})
+
