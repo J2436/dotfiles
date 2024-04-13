@@ -141,7 +141,15 @@ return {
       require 'config.nvim-tree'
     end
   },
-
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = "ibl",
+    opts = {
+      whitespace= {
+        
+      }
+    }
+  },
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -153,7 +161,6 @@ return {
       require 'config.treesitter'
     end
   },
-
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features

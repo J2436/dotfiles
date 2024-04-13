@@ -128,7 +128,23 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<Tab>', '<C-^>')
 
 -- VimFugitive
-vim.keymap.set('n', '<leader>G', "<cmd>G<cr>", { silent = true })
+vim.keymap.set('n', '<leader>G', '<cmd>G<cr>', { silent = true })
+
+-- -- Comment
+--
+-- -- Toggle current line (linewise) using C-/
+-- vim.keymap.set('n', '<C-_>', require('Comment.api').toggle.linewise.current)
+--
+-- -- Toggle current line (blockwise) using C-\
+-- vim.keymap.set('n', '<C-\\>', api.toggle.blockwise.current)
+--
+-- -- Toggle lines (linewise) with dot-repeat support
+-- -- Example: <leader>gc3j will comment 4 lines
+-- vim.keymap.set(
+--     'n', '<leader>gc', require('Comment.api').call('toggle.linewise', 'g@'),
+--     { expr = true }
+-- )
+--
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -363,12 +379,19 @@ vim.keymap.set('n', '<C-s>', '<cmd>w<CR>')
 
 require 'nvim-treesitter.configs'.setup {
   autotag = {
-    enable = true,
+    enable = true
   }
 }
 
+-- Highlight groups 
 
+---- TreeSitterContext
 vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { sp = 'Grey', underline = true})
 vim.api.nvim_set_hl(0, 'TreesitterContextLineNumberBottom', { sp = 'Grey', underline = true})
 vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = 'NONE'})
+
+---- Cursor
+vim.api.nvim_set_hl(0, 'LineNr', { fg = "#ebdbb2", italic = true })
+vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = "#928374" })
+vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = "#928374" })
 
