@@ -23,6 +23,16 @@ return {
 						vertical = { width = 0.9, preview_height = 0.7 }
 					}
 				},
+				pickers = {
+					git_branches = {
+						previewer = false,
+						layout_config = {
+							prompt_position = "top",
+							width = 0.5,
+							height = 0.5
+						}
+					}
+				}
 			}
 
 			-- Enable telescope fzf native, if installed

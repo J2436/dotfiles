@@ -1,6 +1,4 @@
 return {
-  -- NOTE: First, some plugins that don't require any configuration
-
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -23,6 +21,7 @@ return {
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+    tag = 'v0.1.7',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
@@ -59,12 +58,8 @@ return {
     end
   },
 
-  -- Frontend
-  'norcalli/nvim-colorizer.lua',
-  'jinh0/eyeliner.nvim',
-
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',   opts = {} },
+  { 'folke/which-key.nvim',                opts = {} },
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -78,7 +73,8 @@ return {
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
+          { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
         vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
         vim.keymap.set('n', '<leader>rh', require('gitsigns').reset_hunk, { buffer = bufnr, desc = '[R]eset [H]unk' })
         vim.keymap.set('n', '<leader>rb', require('gitsigns').reset_buffer, { buffer = bufnr, desc = '[R]eset [B]uffer' })
@@ -109,10 +105,24 @@ return {
     end
   },
   {
-    'lukas-reineke/indent-blankline.nvim',
-    main = "ibl",
-    opts = {
-    }
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require('oil').setup {
+        columns = { 'icon' },
+        view_options = {
+          show_hidden = true
+        },
+        float = {
+          max_height = 40,
+          max_width = 60,
+        }
+      }
+      vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open Parent Directory' })
+      vim.keymap.set('n', '<space>-', require('oil').toggle_float, { desc = 'Open Parent Directory' })
+    end
   },
   {
     -- Highlight, edit, and navigate code
@@ -137,17 +147,44 @@ return {
   },
   {
     'windwp/nvim-ts-autotag',
+    opts = {}
+  },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, commit = "29be0919b91fb59eca9e90690d76014233392bef" },
+
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require('nvim-ts-autotag').setup()
+      require 'config.harpoon'
     end
   },
-
   -- Java
   {
     'mfussenegger/nvim-jdtls',
     dependencies = {
       'mfussenegger/nvim-dap'
     }
+  },
+  -- SQL
+  {
+    'kristijanhusak/vim-dadbod-ui',
+    dependencies = {
+      { 'tpope/vim-dadbod',                     lazy = true },
+      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+    },
+    cmd = {
+      'DBUI',
+      'DBUIToggle',
+      'DBUIAddConnection',
+      'DBUIFindBuffer',
+    },
+    init = function()
+      -- Your DBUI configuration
+      vim.g.db_ui_use_nerd_fonts = 1
+      vim.g.db_ui_show_database_icon = 1
+      -- vim.g.db_ui_save_location = ''
+    end,
   },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.

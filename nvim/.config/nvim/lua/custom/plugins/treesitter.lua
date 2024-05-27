@@ -12,9 +12,9 @@ return {
   },
   {
     'nvim-treesitter/nvim-treesitter-context',
-    opt = {
-      enable = true,
-      max_lines = 10
-    }
+    -- opt = {
+    --   enable = true,
+    --   max_lines = 10
+    -- }
   }
 }

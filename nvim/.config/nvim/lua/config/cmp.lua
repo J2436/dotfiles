@@ -14,7 +14,6 @@ luasnip.config.setup {}
 
 -- Set hover borders to be like cmp
 vim.cmd(':set winhighlight=' .. cmp.config.window.bordered().winhighlight)
-
 -- If you want insert `(` after select function or method item
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
@@ -51,25 +50,11 @@ cmp.setup {
         if not entry then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
           cmp.confirm()
-          -- vim.lsp.buf.format({
-          --   range = {
-          --     ["start"] = { row-1, 0 },
-          --     ["end"] = { row+1, 0 },
-          --   }
-          -- })
         end
       elseif luasnip.expand_or_locally_jumpable() then
         luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
-          -- vim.lsp.buf.format({
-          --   range = {
-          --     ["start"] = { row-1, 0 },
-          --     ["end"] = { row+1, 0 },
-          --   }
-          -- })
-          -- vim.print(unpack(pos));
-          -- print(vim.print(unpack(vim.api.nvim_win_get_cursor(0))))
       else
         fallback()
       end
@@ -93,3 +78,11 @@ cmp.setup {
     { name = 'path' }
   },
 }
+
+-- Setup dadbod
+cmp.setup.filetype({ "sql" }, {
+  sources = {
+    { name = "vim-dadbod-completion" },
+    { name = "buffer" }
+  },
+})

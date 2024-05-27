@@ -70,6 +70,9 @@ vim.o.termguicolors = true
 -- Disable word wrap
 vim.o.wrap = false
 
+-- Set scrolloff
+vim.o.scrolloff = 10
+
 
 -- [[ Basic Keymaps ]]
 
@@ -118,15 +121,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_augroup('setIndent', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
   group = 'setIndent',
-  pattern = { 'json', 'lua', 'html', 'css', 'scss', 'javascript', 'typescript', 'xml', 'cpp', 'javascriptreact', 'typescriptreact', 'markdown' },
+  pattern = { 'json', 'lua', 'html', 'css', 'scss', 'javascript', 'typescript', 'xml', 'cpp', 'javascriptreact', 'typescriptreact', 'markdown', '*' },
   command = "setlocal shiftwidth=2 tabstop=2"
 })
 vim.api.nvim_create_autocmd('FileType', {
   group = 'setIndent',
-  pattern = { 'java', 'cs' },
+  pattern = { 'java', 'cs', 'sql' },
   command = "setlocal shiftwidth=4 tabstop=4"
 })
-
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -154,8 +156,7 @@ local on_attach = function(_, bufnr)
   -- for LSP related items. It sets the mode, buffer and description for us each time.
 
   if _.server_capabilities.inlayHintProvider then
-    -- vim.lsp.inlay_hint.enable(bufnr, true)
-    -- vim.lsp.inlay_hint(bufnr, true)
+    vim.lsp.inlay_hint.enable(true, {bufnr})
   end
 
   local nmap = function(keys, func, desc)
@@ -212,7 +213,6 @@ local function organize_imports()
 end
 
 local servers = {
-  bashls = {},
   cssls = {},
   marksman = {},
   pyright = {},
@@ -227,6 +227,15 @@ local servers = {
       format = {
         semicolons = 'insert',
         trimTrailingWhitespace = true
+      },
+      inlayHints = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = false,
+        includeInlayParameterNameHints = 'literals',
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
       }
     },
     javascript = {
@@ -241,7 +250,7 @@ local servers = {
       },
       inlayHints = {
         includeInlayEnumMemberValueHints = true,
-        includeInlayFunctionLikeReturnTypeHints = false,
+        includeInlayFunctionLikeReturnTypeHints = true,
         includeInlayFunctionParameterTypeHints = true,
         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
         includeInlayPropertyDeclarationTypeHints = true,
@@ -254,12 +263,13 @@ local servers = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
-      hint = { enable = true }
+      hint = { enable = true },
+      diagnostics = {
+        globals = { 'vim' }
+      }
     },
   },
-  eslint = {
-
-  }
+  -- eslint = {}
 }
 
 -- Setup neovim lua configuration
@@ -303,7 +313,6 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 -- vim: ts=2 sts=2 sw=2 et
 --
 
--- TODO: add bash and shell scripts?
 vim.keymap.set('n', '<leader>ex', function()
   local file_name = vim.api.nvim_buf_get_name(0)
   local file_extension = file_name:match("[^.]+$")
@@ -322,6 +331,8 @@ end, { expr = true })
 
 vim.keymap.set('n', '<C-s>', '<cmd>w<CR>')
 
+-- DBUI
+vim.keymap.set('n', '<leader>db', '<cmd>DBUIToggle<CR>')
 
 -- [ Highlight groups ]
 
@@ -334,3 +345,6 @@ vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = 'NONE'})
 vim.api.nvim_set_hl(0, 'LineNr', { fg = "#ebdbb2", italic = true })
 vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = "#928374" })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = "#928374" })
+
+
+
