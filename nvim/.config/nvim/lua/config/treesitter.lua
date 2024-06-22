@@ -17,9 +17,6 @@ require('nvim-treesitter.configs').setup {
       node_decremental = '<M-space>',
     },
   },
-  autotag = {
-    enable = true
-  },
   textobjects = {
     select = {
       enable = true,
@@ -63,8 +60,5 @@ require('nvim-treesitter.configs').setup {
         ['<leader>A'] = '@parameter.inner',
       },
     },
-    autotag = {
-
-    }
   },
 }

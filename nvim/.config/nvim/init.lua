@@ -250,8 +250,8 @@ local servers = {
       },
       inlayHints = {
         includeInlayEnumMemberValueHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayFunctionParameterTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = false,
+        includeInlayFunctionParameterTypeHints = false,
         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
         includeInlayPropertyDeclarationTypeHints = true,
         includeInlayVariableTypeHints = false,
@@ -347,4 +347,9 @@ vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = "#928374" })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = "#928374" })
 
 
+-- Teesting
+if vim.g.vscode then
 
+else
+
+end
