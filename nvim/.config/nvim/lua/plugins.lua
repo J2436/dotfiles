@@ -155,7 +155,8 @@ return {
     'mfussenegger/nvim-jdtls',
     dependencies = {
       'mfussenegger/nvim-dap'
-    }
+    },
+    event = "VeryLazy"
   },
   -- SQL
   {

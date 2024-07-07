@@ -145,6 +145,16 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     }
 )
 
+vim.diagnostic.config(
+  {
+    float = {
+      border = 'rounded',
+      max_width = 100
+    }
+  }
+)
+
+
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -156,7 +166,7 @@ local on_attach = function(_, bufnr)
   -- for LSP related items. It sets the mode, buffer and description for us each time.
 
   if _.server_capabilities.inlayHintProvider then
-    vim.lsp.inlay_hint.enable(true, {bufnr})
+    vim.lsp.inlay_hint.enable(true, { bufnr })
   end
 
   local nmap = function(keys, func, desc)
@@ -300,13 +310,15 @@ mason_lspconfig.setup_handlers {
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
   vim.lsp.handlers.hover,
   {
-    border = 'rounded'
+    border = 'rounded',
   }
 )
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
   vim.lsp.handlers.signature_help,
-  { border = 'rounded' }
+  {
+    border = 'rounded',
+  }
 )
 
 -- The line beneath this is called `modeline`. See `:help modeline`
@@ -337,9 +349,9 @@ vim.keymap.set('n', '<leader>db', '<cmd>DBUIToggle<CR>')
 -- [ Highlight groups ]
 
 ---- TreeSitterContext
-vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { sp = 'Grey', underline = true})
-vim.api.nvim_set_hl(0, 'TreesitterContextLineNumberBottom', { sp = 'Grey', underline = true})
-vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = 'NONE'})
+vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { sp = 'Grey', underline = true })
+vim.api.nvim_set_hl(0, 'TreesitterContextLineNumberBottom', { sp = 'Grey', underline = true })
+vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = 'NONE' })
 
 ---- Cursor
 vim.api.nvim_set_hl(0, 'LineNr', { fg = "#ebdbb2", italic = true })
