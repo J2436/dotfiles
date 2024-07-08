@@ -16,11 +16,14 @@ return {
 					file_ignore_patterns = {
 						"node_modules",
 						"dist",
-						"build/"
+						"build",
+						"package%-lock.json",
+						".git"
 					},
-					layout_strategy = 'vertical',
+					layout_strategy = 'horizontal',
 					layout_config = {
-						vertical = { width = 0.9, preview_height = 0.7 }
+						-- vertical = { width = 0.9, preview_height = 0.7 },
+						horizontal = { width = .95, preview_width = 0.7 }
 					}
 				},
 				pickers = {
@@ -51,7 +54,13 @@ return {
 
 			vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 			vim.keymap.set('n', '<leader>gb', require('telescope.builtin').git_branches, { desc = 'Search [G]it [B]ranches' })
-			vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[F]ind [F]iles' })
+			vim.keymap.set('n', '<leader>fd',
+				function()
+					require('telescope.builtin').find_files({
+						hidden = true
+					})
+				end,
+				{ desc = '[F]ind [F]iles' })
 			vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 			vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 			vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })

@@ -141,14 +141,18 @@ return {
     }
   },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, commit = "29be0919b91fb59eca9e90690d76014233392bef" },
-
+  -- Frontend
   {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    'norcalli/nvim-colorizer.lua',
     config = function()
-      require 'config.harpoon'
-    end
+      require 'colorizer'.setup({
+        'css',
+        'scss',
+        'javascript',
+        'jsx'
+      });
+    end,
+    event = 'VeryLazy'
   },
   -- Java
   {
@@ -252,5 +256,13 @@ return {
   --    up-to-date with whatever is in the kickstart repo.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require 'config.harpoon'
+    end
+  },
   { import = 'custom.plugins' },
 }

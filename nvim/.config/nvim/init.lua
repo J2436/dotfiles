@@ -140,9 +140,9 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false
-    }
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false
+  }
 )
 
 vim.diagnostic.config(
@@ -323,7 +323,6 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
---
 
 vim.keymap.set('n', '<leader>ex', function()
   local file_name = vim.api.nvim_buf_get_name(0)
@@ -347,7 +346,6 @@ vim.keymap.set('n', '<C-s>', '<cmd>w<CR>')
 vim.keymap.set('n', '<leader>db', '<cmd>DBUIToggle<CR>')
 
 -- [ Highlight groups ]
-
 ---- TreeSitterContext
 vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { sp = 'Grey', underline = true })
 vim.api.nvim_set_hl(0, 'TreesitterContextLineNumberBottom', { sp = 'Grey', underline = true })
@@ -357,6 +355,10 @@ vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = 'NONE' })
 vim.api.nvim_set_hl(0, 'LineNr', { fg = "#ebdbb2", italic = true })
 vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = "#928374" })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = "#928374" })
+
+-- Commenting
+vim.keymap.set('n', '<C-_>', 'gcc', { remap = true })
+vim.keymap.set('v', '<C-_>', 'v_gc', { remap = true })
 
 
 -- Teesting
