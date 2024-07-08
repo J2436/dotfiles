@@ -1,3 +1,5 @@
+if vim.g.vscode then return {} end
+
 return {
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -10,7 +12,7 @@ return {
           layout = 'diff2_vertical'
         }
       }
-    }
+    },
   },
 
   -- Detect tabstop and shiftwidth automatically
@@ -35,7 +37,6 @@ return {
       'folke/neodev.nvim',
     }
   },
-
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -51,7 +52,7 @@ return {
       'rafamadriz/friendly-snippets',
 
       -- Autopairs
-      { 'windwp/nvim-autopairs', opts = {} }
+      { 'windwp/nvim-autopairs', opts = {} },
     },
     config = function()
       require 'config.cmp'
@@ -59,7 +60,7 @@ return {
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',                opts = {} },
+  { 'folke/which-key.nvim',   opts = {} },
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -112,7 +113,7 @@ return {
       }
       vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open Parent Directory' })
       vim.keymap.set('n', '<space>-', require('oil').toggle_float, { desc = 'Open Parent Directory' })
-    end
+    end,
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -140,7 +141,12 @@ return {
       enable = true
     }
   },
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, commit = "29be0919b91fb59eca9e90690d76014233392bef" },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {},
+    commit = "29be0919b91fb59eca9e90690d76014233392bef",
+  },
   -- Frontend
   {
     'norcalli/nvim-colorizer.lua',
@@ -152,7 +158,7 @@ return {
         'jsx'
       });
     end,
-    event = 'VeryLazy'
+    event = 'VeryLazy',
   },
   -- Java
   {
@@ -160,7 +166,7 @@ return {
     dependencies = {
       'mfussenegger/nvim-dap'
     },
-    event = "VeryLazy"
+    event = "VeryLazy",
   },
   -- SQL
   {
@@ -262,7 +268,7 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require 'config.harpoon'
-    end
+    end,
   },
   { import = 'custom.plugins' },
 }
