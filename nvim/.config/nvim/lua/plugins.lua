@@ -1,4 +1,15 @@
-if vim.g.vscode then return {} end
+if vim.g.vscode then return {
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  },
+} end
 
 return {
   -- Git related plugins
@@ -109,10 +120,11 @@ return {
         float = {
           max_height = 40,
           max_width = 60,
-        }
+        },
+        skip_confirm_for_simple_edits = true
       }
-      vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open Parent Directory' })
-      vim.keymap.set('n', '<space>-', require('oil').toggle_float, { desc = 'Open Parent Directory' })
+      -- vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open Parent Directory' })
+      vim.keymap.set('n', '-', require('oil').toggle_float, { desc = 'Open Parent Directory' })
     end,
   },
   { -- Highlight, edit, and navigate code
@@ -269,6 +281,12 @@ return {
     config = function()
       require 'config.harpoon'
     end,
+  },
+  {
+    "folke/ts-comments.nvim",
+    opts = {},
+    event = "VeryLazy",
+    enabled = vim.fn.has("nvim-0.10.0") == 1,
   },
   { import = 'custom.plugins' },
 }

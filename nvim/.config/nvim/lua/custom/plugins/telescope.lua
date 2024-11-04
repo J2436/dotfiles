@@ -20,9 +20,9 @@ return {
 						"package%-lock.json",
 						".git"
 					},
-					layout_strategy = 'horizontal',
+					layout_strategy = 'vertical',
 					layout_config = {
-						-- vertical = { width = 0.9, preview_height = 0.7 },
+						vertical = { width = 0.9, preview_height = 0.7 },
 						horizontal = { width = .95, preview_width = 0.7 }
 					}
 				},
