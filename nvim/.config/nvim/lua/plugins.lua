@@ -1,15 +1,17 @@
-if vim.g.vscode then return {
-  {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
-    end
-  },
-} end
+if vim.g.vscode then
+  return {
+    {
+      "kylechui/nvim-surround",
+      version = "*", -- Use for stability; omit to use `main` branch for the latest features
+      event = "VeryLazy",
+      config = function()
+        require("nvim-surround").setup({
+          -- Configuration here, or leave empty to use defaults
+        })
+      end
+    },
+  }
+end
 
 return {
   -- Git related plugins
@@ -287,6 +289,28 @@ return {
     opts = {},
     event = "VeryLazy",
     enabled = vim.fn.has("nvim-0.10.0") == 1,
+  },
+  {
+    "github/copilot.vim",
+    config = function()
+      vim.api.nvim_set_keymap('i', '<C-L>', 'copilot#Accept("<CR>")', { expr = true, noremap = true, silent = true })
+      vim.g.copilot_no_tab_map = true
+    end
+  },
+  {
+    "seblj/roslyn.nvim",
+    ft = "cs",
+    opts = {
+      -- your configuration comes here; leave empty for default settings
+    }
+  },
+  {
+    "folke/zen-mode.nvim",
+    opts = {
+      window = {
+        max_width = 140
+      }
+    }
   },
   { import = 'custom.plugins' },
 }

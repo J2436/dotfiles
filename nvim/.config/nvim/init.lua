@@ -108,7 +108,6 @@ else
   })
 
   --[[ Yank to Keyboard by default ]]
-  -- vim.api.nvim_command('set clipboard=unamed')
   vim.o.clipboard = 'unnamed'
 
   -- [[ Disable auto comment on newline]]
@@ -229,7 +228,7 @@ else
     marksman = {},
     pyright = {},
     rust_analyzer = {},
-    tsserver = {
+    ts_ls = {
       typescript = {
         preferences = {
           quotePreference = 'single',
@@ -299,6 +298,11 @@ else
 
     mason_lspconfig.setup_handlers {
       function(server_name)
+        if server_name == 'ts_ls'
+          then
+          server_name = 'tsserver'
+        end
+
         require('lspconfig')[server_name].setup {
           capabilities = capabilities,
           on_attach = on_attach,
@@ -339,6 +343,8 @@ else
       comp = 'lua'
     elseif file_extension == 'java' then
       comp = 'java'
+    elseif file_extension == 'cs' then
+      comp = 'dotnet run'
     end
     return '<cmd>w | !' .. comp .. " " .. file_name .. '<CR>'
   end, { expr = true })

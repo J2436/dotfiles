@@ -26,6 +26,19 @@ keymap("v", "p", '"_dP', opts)
 -- removes highlighting after escaping vim search
 keymap("n", "<Esc>", "<Esc>:noh<CR>", opts)
 
+-- general keymaps
+keymap({"n", "v"}, "<leader>t", "<cmd>lua require('vscode').action('workbench.action.terminal.toggleTerminal')<CR>")
+keymap({"n", "v"}, "<leader>b", "<cmd>lua require('vscode').action('editor.debug.action.toggleBreakpoint')<CR>")
+keymap({"n", "v"}, "<leader>d", "<cmd>lua require('vscode').action('editor.action.showHover')<CR>")
+keymap({"n", "v"}, "<leader>a", "<cmd>lua require('vscode').action('editor.action.quickFix')<CR>")
+keymap({"n", "v"}, "<leader>sp", "<cmd>lua require('vscode').action('workbench.actions.view.problems')<CR>")
+keymap({"n", "v"}, "<leader>cn", "<cmd>lua require('vscode').action('notifications.clearAll')<CR>")
+keymap({"n", "v"}, "<leader>ff", "<cmd>lua require('vscode').action('workbench.action.quickOpen')<CR>")
+keymap({"n", "v"}, "<leader>cp", "<cmd>lua require('vscode').action('workbench.action.showCommands')<CR>")
+keymap({"n", "v"}, "<leader>pr", "<cmd>lua require('vscode').action('code-runner.run')<CR>")
+keymap({"n", "v"}, "<leader>fd", "<cmd>lua require('vscode').action('editor.action.formatDocument')<CR>")
+
+-- harpoon keymaps
 keymap({"n", "v"}, "<leader>a", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>")
 keymap({"n", "v"}, "<C-e>", "<cmd>lua require('vscode').action('vscode-harpoon.editorQuickPick')<CR>")
 keymap({"n", "v"}, "<leader>e", "<cmd>lua require('vscode').action('vscode-harpoon.editEditors')<CR>")
@@ -34,6 +47,7 @@ keymap({"n", "v"}, "<space>s", "<cmd>lua require('vscode').action('vscode-harpoo
 keymap({"n", "v"}, "<space>d", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor3')<CR>")
 keymap({"n", "v"}, "<space>f", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor4')<CR>")
 keymap({"n", "v"}, "<space>g", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor5')<CR>")
+keymap({"n", "v"}, "<space>p", "<cmd>lua require('vscode').action('vscode-harpoon.gotoPreviousHarpoonEditor')<CR>")
 
 
 -- Remap for dealing with word wrap
