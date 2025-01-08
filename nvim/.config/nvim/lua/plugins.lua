@@ -290,13 +290,13 @@ return {
     event = "VeryLazy",
     enabled = vim.fn.has("nvim-0.10.0") == 1,
   },
-  {
-    "github/copilot.vim",
-    config = function()
-      vim.api.nvim_set_keymap('i', '<C-L>', 'copilot#Accept("<CR>")', { expr = true, noremap = true, silent = true })
-      vim.g.copilot_no_tab_map = true
-    end
-  },
+  -- {
+  --   "github/copilot.vim",
+  --   config = function()
+  --     vim.api.nvim_set_keymap('i', '<C-L>', 'copilot#Accept("<CR>")', { expr = true, noremap = true, silent = true })
+  --     vim.g.copilot_no_tab_map = true
+  --   end
+  -- },
   {
     "seblj/roslyn.nvim",
     ft = "cs",
@@ -311,6 +311,48 @@ return {
         max_width = 140
       }
     }
+  },
+  -- formatting
+  {
+    'stevearc/conform.nvim',
+    event = 'BufWritePre',
+    cmd = {
+      'ConformInfo'
+    },
+    keys = {
+      {
+        '<leader>fb',
+        function()
+          require('conform').format({ async = true })
+        end,
+        mode = '',
+        desc = 'Format buffer'
+      }
+    },
+    ---@module "conform"
+    ---@type conform.setupOpts
+    opts = {
+      formatters_by_ft = {
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+      },
+      -- Set default options
+      default_format_opts = {
+        lsp_format = "fallback",
+      },
+      format_on_save = function(bufnr)
+        -- Disable with a global or buffer-local variable
+        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+          return
+        end
+        if vim.bo[bufnr].filetype == 'c' then
+          return
+        end
+        return { timeout_ms = 500, lsp_format = "fallback" }
+      end,
+    },
   },
   { import = 'custom.plugins' },
 }

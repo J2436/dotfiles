@@ -199,14 +199,25 @@ else
     nmap('<leader>wl', function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, '[W]orkspace [L]ist Folders')
-
-    nmap('<leader>fb', vim.lsp.buf.format, '[F]ormat [B]uffer')
-
-    -- Create a command `:Format` local to the LSP buffer
-    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-      vim.lsp.buf.format()
-    end, { desc = 'Format current buffer with LSP' })
   end
+
+  vim.api.nvim_create_user_command("FormatDisable", function(args)
+    if args.bang then
+      -- FormatDisable! will disable formatting just for this buffer
+      vim.b.disable_autoformat = true
+    else
+      vim.g.disable_autoformat = true
+    end
+  end, {
+    desc = "Disable autoformat-on-save",
+    bang = true,
+  })
+  vim.api.nvim_create_user_command("FormatEnable", function()
+    vim.b.disable_autoformat = false
+    vim.g.disable_autoformat = false
+  end, {
+    desc = "Re-enable autoformat-on-save",
+  })
 
   -- Enable the following language servers
   --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -299,7 +310,7 @@ else
     mason_lspconfig.setup_handlers {
       function(server_name)
         if server_name == 'ts_ls'
-          then
+        then
           server_name = 'tsserver'
         end
 

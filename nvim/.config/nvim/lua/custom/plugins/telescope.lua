@@ -20,10 +20,10 @@ return {
 						"package%-lock.json",
 						".git"
 					},
-					layout_strategy = 'vertical',
+					-- layout_strategy = 'vertical',
 					layout_config = {
 						vertical = { width = 0.9, preview_height = 0.7 },
-						horizontal = { width = .95, preview_width = 0.7 }
+						horizontal = { width = .95, preview_width = 0.6 }
 					}
 				},
 				pickers = {
@@ -51,6 +51,9 @@ return {
 					previewer = false,
 				})
 			end, { desc = '[/] Fuzzily search in current buffer' })
+
+			-- LSP
+			vim.keymap.set('n', '<leader>fs', require('telescope.builtin').lsp_document_symbols, { desc = '[F]ind [S]ymbols' })
 
 			vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 			vim.keymap.set('n', '<leader>gb', require('telescope.builtin').git_branches, { desc = 'Search [G]it [B]ranches' })
