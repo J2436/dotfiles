@@ -19,8 +19,14 @@ return {
       vim.g.gruvbox_material_foreground = 'original'
       vim.g.gruvbox_material_better_performance = 1
 
-      vim.cmd.colorscheme 'gruvbox-material'
+      -- vim.cmd.colorscheme 'gruvbox-material'
       vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Normal' })
+    end
+  },
+  {
+    "arturgoms/moonbow.nvim",
+    config = function()
+      vim.cmd.colorscheme 'moonbow'
     end
   }
 }

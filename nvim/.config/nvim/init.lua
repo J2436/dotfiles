@@ -346,7 +346,7 @@ else
     local file_name = vim.api.nvim_buf_get_name(0)
     local file_extension = file_name:match("[^.]+$")
     local comp = nil
-    if file_extension == 'js' or file_extension == 'tsx' then
+    if file_extension == 'js' or file_extension == 'ts' or file_extension == 'tsx' or file_extension == 'mjs' or file_extension == 'cjs' then
       comp = 'node'
     elseif file_extension == 'py' then
       comp = 'python3'
@@ -376,7 +376,17 @@ else
   vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = "#928374" })
   vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = "#928374" })
 
-  -- Commenting
+  -- SignColumn
+  vim.api.nvim_set_hl(0, 'SignColumn', { bg = "#0A0E14" })
+
+  vim.api.nvim_set_hl(0, 'MoonbowGreenSign', { bg = "bg", fg = "#b8bb26" })
+  vim.api.nvim_set_hl(0, 'MoonbowAquaSign', { bg = "bg", fg = "#8ec07c" })
+  vim.api.nvim_set_hl(0, 'MoonbowRedSign', { bg = "bg", fg = "#fb4934" })
+  vim.api.nvim_set_hl(0, 'MoonbowBlueSign', { bg = "bg", fg = "#83a598" })
+  vim.api.nvim_set_hl(0, 'MoonbowYellowSign', { bg = "bg", fg = "#fabd2f" })
+  vim.api.nvim_set_hl(0, 'MoonbowOrangeSign', { bg = "bg", fg = "#fe8019" })
+
+  -- [ Commenting ]
   vim.keymap.set('n', '<C-_>', 'gcc', { remap = true })
   vim.keymap.set('v', '<C-_>', 'v_gc', { remap = true })
 end
